@@ -1,0 +1,13 @@
+from sqlalchemy import create_engine, text
+import pandas as pd
+user = 'root'
+password = ''
+host = '127.0.0.1'
+port = 3306
+database = 'npm'
+
+engine = create_engine(url="mysql+mysqlconnector://{0}:{1}@{2}:{3}/{4}".format(user, password, host, port, database))
+conn = engine.connect()
+sql = "SELECT `SID MOCN`,`Sitename`,`ENodeBID 1`,`ENodeBID 2`,`TAC` FROM sdbmocn_4g WHERE `ENodeBID 1` = '50308' "
+df = pd.read_sql_query(sql=text(sql), con=conn)
+print(df)
